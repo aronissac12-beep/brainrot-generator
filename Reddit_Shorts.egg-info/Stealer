@@ -1,0 +1,70 @@
+import random
+import time
+
+# --- Datos base ---
+nombres_base = [
+    "Giga Chad", "Skibidi", "NPC", "Ohio Sigma", "Rizzler", "Fanum Tax",
+    "Gyattzilla", "Baby Gronk", "Kai Cenat", "Goofy Ahh", "Quandale Dingle"
+]
+
+# Rarezas y sus probabilidades (%)
+rareza_prob = {
+    "Común": 50,
+    "Raro": 25,
+    "Épico": 15,
+    "Legendario": 7,
+    "Mítico": 2,
+    "Secreto": 1
+}
+
+# Multiplicadores por rareza (para valor y poder)
+multiplicadores = {
+    "Común": 1.0,
+    "Raro": 1.5,
+    "Épico": 2.0,
+    "Legendario": 3.0,
+    "Mítico": 5.0,
+    "Secreto": 10.0
+}
+
+
+# --- Función para elegir rareza según probabilidad ---
+def elegir_rareza():
+    total = sum(rareza_prob.values())
+    rand = random.uniform(0, total)
+    acumulado = 0
+    for rareza, prob in rareza_prob.items():
+        acumulado += prob
+        if rand <= acumulado:
+            return rareza
+
+
+# --- Generador principal ---
+def generar_brainrot():
+    nombre = random.choice(nombres_base)
+    rareza = elegir_rareza()
+    mult = multiplicadores[rareza]
+    
+    poder = round(random.uniform(10, 100) * mult, 1)
+    valor = round(random.uniform(50, 500) * mult, 2)
+    
+    brainrot = {
+        "Nombre": nombre,
+        "Rareza": rareza,
+        "Poder": poder,
+        "Valor": valor
+    }
+    return brainrot
+
+
+# --- Ejecución ---
+if __name__ == "__main__":
+    print("🧠 Generador de Brainrots 🧠\n")
+    while True:
+        brainrot = generar_brainrot()
+        print(f"Nuevo Brainrot generado:")
+        print(f"  Nombre: {brainrot['Nombre']}")
+        print(f"  Rareza: {brainrot['Rareza']}")
+        print(f"  Poder: {brainrot['Poder']}")
+        print(f"  Valor: ${brainrot['Valor']}\n")
+        time.sleep(1.5)  # Genera uno cada 1.5 segundos
